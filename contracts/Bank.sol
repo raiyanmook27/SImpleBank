@@ -96,6 +96,8 @@ contract Bank {
         ///@notice get current balance
         balance = balances[msg.sender];
 
+        emit AfterDeposit(msg.sender, msg.value, true);
+
         /// @notice return balance
         return balance;
     }
@@ -105,7 +107,7 @@ contract Bank {
      * @dev used a Withdrawal pattern to prevent re-entrancy attacks
      * @return _balance -> returns the balance of the user.
      */
-    function withdraw(uint _amount)
+    function withdrawEth(uint _amount)
         external
         checkAddress(msg.sender)
         checkValue(_amount)
@@ -126,6 +128,8 @@ contract Bank {
         /// @notice get current balance of user
         _balance = balances[msg.sender];
 
+        emit AFterWithdrawal(msg.sender, _amount, true);
+
         /// @notice return balance
         return _balance;
     }
@@ -134,7 +138,7 @@ contract Bank {
      * @notice get the current balance of the caller
      * @return balance
      */
-    function getBalance() external view returns (uint balance) {
+    function getAccountBalance() external view returns (uint balance) {
         /// @notice get the current balance of user
         balance = balances[msg.sender];
         /// @notice return balance
